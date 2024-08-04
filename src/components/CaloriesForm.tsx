@@ -1,14 +1,9 @@
-import { ChangeEvent, Dispatch, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { categories } from "../data/categories";
 import { Activity } from "../types";
-import { ActivityActions, ActivityState } from "../reducers/activityReducer";
 import Calendar from "react-calendar";
-
-type CaloriesFormProps = {
-  dispatch: Dispatch<ActivityActions>;
-  state: ActivityState;
-};
+import { useCalories } from "../hooks/useCalories";
 
 const initialState: Activity = {
   id: uuidv4(),
@@ -18,7 +13,8 @@ const initialState: Activity = {
   date: new Date()
 };
 
-export default function CaloriesForm({ dispatch, state }: CaloriesFormProps) {
+export default function CaloriesForm() {
+  const { state, dispatch } = useCalories();
   const [activity, setActivity] = useState<Activity>(initialState);
 
   useEffect(() => {
